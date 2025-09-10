@@ -2,6 +2,9 @@
 
 namespace app\models;
 
+use Firebase\JWT\JWT;
+use Yii;
+
 class User extends \yii\base\BaseObject implements \yii\web\IdentityInterface
 {
     public $id;
@@ -100,5 +103,19 @@ class User extends \yii\base\BaseObject implements \yii\web\IdentityInterface
     public function validatePassword($password)
     {
         return $this->password === $password;
+    }
+
+    public function generateJwtToken()
+    {
+        $key = Yii::$app->params['jwtSecret']; // coloque no params.php
+        $payload = [
+            'iss' => 'http://localhost',
+            'aud' => 'http://localhost',
+            'iat' => time(),
+            'exp' => time() + 3600, // expira em 1h
+            'uid' => $this->id,
+        ];
+
+        return JWT::encode($payload, $key, 'HS256');
     }
 }
