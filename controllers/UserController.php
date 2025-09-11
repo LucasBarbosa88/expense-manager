@@ -5,25 +5,11 @@ namespace app\controllers;
 use Yii;
 use yii\rest\Controller;
 use app\models\User;
-use Firebase\JWT\JWT;
 
 class UserController extends Controller
 {
-  public $enableCsrfValidation = false; // para API REST
+  public $enableCsrfValidation = false;
 
-  public function behaviors()
-  {
-    $behaviors = parent::behaviors();
-    $behaviors['authenticator'] = [
-      'class' => \app\components\JwtHttpBearerAuth::class,
-    ];
-    return $behaviors;
-  }
-
-  /**
-   * Registro de usuário
-   * POST /user/register
-   */
   public function actionRegister()
   {
     $params = Yii::$app->request->post();
@@ -45,18 +31,12 @@ class UserController extends Controller
       return ['error' => $user->errors];
     }
 
-    $token = $this->generateJwt($user->id);
-
     return [
       'message' => 'Usuário registrado com sucesso',
-      'access_token' => $token
+      'access_token' => $user->generateJwtToken()
     ];
   }
 
-  /**
-   * Login de usuário
-   * POST /user/login
-   */
   public function actionLogin()
   {
     $params = Yii::$app->request->post();
@@ -66,29 +46,12 @@ class UserController extends Controller
     }
 
     $user = User::findOne(['email' => $params['email']]);
-    if (!$user || !Yii::$app->security->validatePassword($params['password'], $user->password_hash)) {
+    if (!$user || !$user->validatePassword($params['password'])) {
       return ['error' => 'Email ou senha inválidos'];
     }
 
-    $token = $this->generateJwt($user->id);
-
-    return ['access_token' => $token];
-  }
-
-  /**
-   * Gera JWT para o usuário
-   */
-  private function generateJwt($userId)
-  {
-    $key = Yii::$app->params['jwtSecret'];
-    $payload = [
-      'iss' => 'http://localhost',
-      'aud' => 'http://localhost',
-      'iat' => time(),
-      'exp' => time() + 3600, // expira em 1 hora
-      'uid' => $userId,
+    return [
+      'access_token' => $user->generateJwtToken()
     ];
-
-    return JWT::encode($payload, $key, 'HS256');
   }
 }
