@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5bb36faba5ab318d80e8c0597b2158fa",
+    "content-hash": "337130ff5d5793fac768fc225959b9ba",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -2095,6 +2095,65 @@
             "time": "2025-05-02T02:33:11+00:00"
         },
         {
+            "name": "codeception/module-db",
+            "version": "3.2.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Codeception/module-db.git",
+                "reference": "0ac08372c13f72c33745050e396317c8456a5f7b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Codeception/module-db/zipball/0ac08372c13f72c33745050e396317c8456a5f7b",
+                "reference": "0ac08372c13f72c33745050e396317c8456a5f7b",
+                "shasum": ""
+            },
+            "require": {
+                "codeception/codeception": "*@dev",
+                "ext-json": "*",
+                "ext-mbstring": "*",
+                "ext-pdo": "*",
+                "php": "^8.0"
+            },
+            "conflict": {
+                "codeception/codeception": "<5.0"
+            },
+            "require-dev": {
+                "behat/gherkin": "~4.10.0",
+                "squizlabs/php_codesniffer": "*"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "src/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Michael Bodnarchuk"
+                },
+                {
+                    "name": "Gintautas Miselis"
+                }
+            ],
+            "description": "DB module for Codeception",
+            "homepage": "https://codeception.com/",
+            "keywords": [
+                "codeception",
+                "database-testing",
+                "db-testing"
+            ],
+            "support": {
+                "issues": "https://github.com/Codeception/module-db/issues",
+                "source": "https://github.com/Codeception/module-db/tree/3.2.2"
+            },
+            "time": "2025-03-03T08:10:27+00:00"
+        },
+        {
             "name": "codeception/module-filesystem",
             "version": "3.0.1",
             "source": {
@@ -2148,29 +2207,29 @@
         },
         {
             "name": "codeception/module-yii2",
-            "version": "1.1.12",
+            "version": "v2.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Codeception/module-yii2.git",
-                "reference": "1ebe6bc2a7f307a6c246026a905612a40ef64859"
+                "reference": "1188aa19b1eaee3514b6d4cbbd9c58261d1aaaa2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Codeception/module-yii2/zipball/1ebe6bc2a7f307a6c246026a905612a40ef64859",
-                "reference": "1ebe6bc2a7f307a6c246026a905612a40ef64859",
+                "url": "https://api.github.com/repos/Codeception/module-yii2/zipball/1188aa19b1eaee3514b6d4cbbd9c58261d1aaaa2",
+                "reference": "1188aa19b1eaee3514b6d4cbbd9c58261d1aaaa2",
                 "shasum": ""
             },
             "require": {
                 "codeception/codeception": "^5.0.8",
                 "codeception/lib-innerbrowser": "^3.0 | ^4.0",
-                "php": "^8.0"
+                "php": "^8.3"
             },
             "require-dev": {
                 "codeception/module-asserts": ">= 3.0",
                 "codeception/module-filesystem": "> 3.0",
                 "codeception/verify": "^3.0",
-                "codemix/yii2-localeurls": "^1.7",
-                "phpstan/phpstan": "^1.10",
+                "phpstan/phpstan": "^2",
+                "symplify/easy-coding-standard": "^12.5",
                 "yiisoft/yii2": "dev-master",
                 "yiisoft/yii2-app-advanced": "dev-master"
             },
@@ -2203,9 +2262,9 @@
             ],
             "support": {
                 "issues": "https://github.com/Codeception/module-yii2/issues",
-                "source": "https://github.com/Codeception/module-yii2/tree/1.1.12"
+                "source": "https://github.com/Codeception/module-yii2/tree/v2.0.4"
             },
-            "time": "2024-12-09T14:34:26+00:00"
+            "time": "2025-05-31T06:52:24+00:00"
         },
         {
             "name": "codeception/stub",

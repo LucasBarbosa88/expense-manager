@@ -8,7 +8,13 @@
 #basic/web/index.php
 actor: FunctionalTester
 modules:
-    enabled:
-      - Filesystem
-      - Yii2
-      - Asserts
+  enabled:
+    - Yii2:
+        configFile: 'config/test.php'
+    - Db:
+        dsn: 'mysql:host=db;dbname=expense_manager'
+        user: 'yiiuser'
+        password: 'yii7893'
+        cleanup: true
+        populate: true
+
