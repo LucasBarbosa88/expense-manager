@@ -37,13 +37,16 @@ class CategoryService
   {
     $category = Category::findOne(['id' => $id]);
     if (!$category) throw new NotFoundHttpException('Categoria não encontrada');
-
-    return $category->delete();
+    if ($category && $category->delete()) {
+      return ['success' => true];
+    }
+    return ['success' => false];
   }
 
   public function listCategories($filters = [], $page = 1, $limit = 10)
   {
     $query = Category::find();
+
     if (isset($filters['id'])) {
       $query->andWhere(['id' => $filters['id']]);
     }
@@ -54,17 +57,24 @@ class CategoryService
 
     $query->orderBy(['name' => SORT_ASC]);
 
-      $pagination = new Pagination([
-        'totalCount' => $query->count(),
-        'page' => $page - 1,
-        'pageSize' => $limit,
-      ]);
+    // força page e limit como inteiros válidos
+    $page = is_array($page) ? 1 : (int)$page;
+    $page = max($page, 1);
 
-      $categories = $query->offset($pagination->offset)
-        ->limit($pagination->limit)
-        ->all();
+    $limit = is_array($limit) ? 10 : (int)$limit;
+    $limit = max($limit, 1);
 
-      return [
+    $pagination = new Pagination([
+      'totalCount' => $query->count(),
+      'page' => $page - 1,
+      'pageSize' => $limit,
+    ]);
+
+    $categories = $query->offset($pagination->offset)
+      ->limit($pagination->limit)
+      ->all();
+
+    return [
       'data' => $categories,
       'pagination' => [
         'total' => $pagination->totalCount,

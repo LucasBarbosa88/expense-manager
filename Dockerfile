@@ -2,7 +2,16 @@ FROM php:8.4-apache
 
 RUN apt-get update && apt-get install -y \
     libzip-dev zip unzip git && \
-    docker-php-ext-install pdo_mysql
+    docker-php-ext-install pdo_mysql \
+    libfreetype6-dev \
+    libjpeg62-turbo-dev \
+    libpng-dev \
+    libmagickwand-dev --no-install-recommends \
+    && docker-php-ext-configure gd --with-freetype --with-jpeg \
+    && docker-php-ext-install gd \
+    && pecl install imagick \
+    && docker-php-ext-enable imagick \
+    && rm -rf /var/lib/apt/lists/*
 
 RUN a2enmod rewrite
 

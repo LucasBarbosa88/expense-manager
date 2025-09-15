@@ -26,7 +26,16 @@ return [
             'basePath' => __DIR__ . '/../web/assets',
         ],
         'urlManager' => [
-            'showScriptName' => true,
+            'enablePrettyUrl' => true,
+            'showScriptName' => false,
+            'rules' => [
+                'POST user/register' => 'user/register',
+                'POST user/login' => 'user/login',
+                'POST category/create' => 'category/create',
+                'GET category' => 'category/index',
+                'POST expense/create' => 'expense/create',
+                'GET expense' => 'expense/index',
+            ],
         ],
         'user' => [
             'identityClass' => 'app\models\User',

@@ -33,13 +33,12 @@ class CategoryController extends Controller
     return $this->service->deleteCategory($id);
   }
 
-  public function actionIndex($page = 1, $limit = 10, $category_id = null, $start_date = null, $end_date = null)
+  public function actionIndex($page = 1, $limit = 10, $id = null, $name = null)
   {
     $filters = [
-      'category_id' => $category_id,
-      'start_date'  => $start_date,
-      'end_date'    => $end_date
+      'id' => $id,
+      'name'  => $name,
     ];
-    return $this->service->listExpenses(Yii::$app->user->id, $filters, $page, $limit);
+    return $this->service->listCategories(Yii::$app->user->id, $filters, $page, $limit);
   }
 }

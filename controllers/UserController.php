@@ -15,10 +15,12 @@ class UserController extends Controller
     $params = Yii::$app->request->post();
 
     if (!isset($params['email'], $params['password'])) {
+      Yii::$app->response->statusCode = 401;
       return ['error' => 'Email e senha são obrigatórios'];
     }
 
     if (User::findOne(['email' => $params['email']])) {
+      Yii::$app->response->statusCode = 401;
       return ['error' => 'Email já cadastrado'];
     }
 
@@ -30,7 +32,7 @@ class UserController extends Controller
     if (!$user->save()) {
       return ['error' => $user->errors];
     }
-
+    Yii::$app->response->statusCode = 201;
     return [
       'message' => 'Usuário registrado com sucesso',
       'access_token' => $user->generateJwtToken()
@@ -42,11 +44,13 @@ class UserController extends Controller
     $params = Yii::$app->request->post();
 
     if (!isset($params['email'], $params['password'])) {
+      Yii::$app->response->statusCode = 401;
       return ['error' => 'Email e senha são obrigatórios'];
     }
 
     $user = User::findOne(['email' => $params['email']]);
     if (!$user || !$user->validatePassword($params['password'])) {
+      Yii::$app->response->statusCode = 401;
       return ['error' => 'Email ou senha inválidos'];
     }
 

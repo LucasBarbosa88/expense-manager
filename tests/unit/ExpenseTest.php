@@ -1,21 +1,27 @@
 <?php
 
+namespace tests\unit;
 
-namespace Unit;
+use app\models\Expense;
+use Codeception\Test\Unit;
 
-use \UnitTester;
-
-class ExpenseTest extends \Codeception\Test\Unit
+class ExpenseTest extends Unit
 {
-
-    protected UnitTester $tester;
-
-    protected function _before()
+    public function testValidation()
     {
-    }
+        $expense = new Expense();
+        $expense->description = '';
+        $expense->amount = null;
+        $expense->category_id = null;
+        $expense->expense_date = null;
 
-    public function testCreateExpense()
-    {
-        
+        $this->assertFalse($expense->validate(['description', 'amount', 'category_id', 'expense_date']));
+
+        $expense->description = 'Teste';
+        $expense->amount = 120;
+        $expense->category_id = 1;
+        $expense->expense_date = date('Y-m-d');
+
+        $this->assertTrue($expense->validate());
     }
 }
